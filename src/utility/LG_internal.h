@@ -25,6 +25,8 @@
 // include files
 //------------------------------------------------------------------------------
 
+#pragma GCC diagnostic ignored "-Wformat-truncation="
+
 #include <ctype.h>
 #include "LAGraph.h"
 #undef I

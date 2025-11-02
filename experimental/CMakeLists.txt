@@ -38,7 +38,7 @@ if ( BUILD_SHARED_LIBS )
         set_target_properties ( LAGraphX PROPERTIES EXPORT_NO_SYSTEM ON )
     endif ( )
 
-    target_link_libraries ( LAGraphX PRIVATE LAGraph GraphBLAS::GraphBLAS )
+    target_link_libraries ( LAGraphX PUBLIC LAGraph GraphBLAS::GraphBLAS )
 
     target_include_directories ( LAGraphX PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -71,9 +71,9 @@ if ( BUILD_STATIC_LIBS )
     endif ( )
 
     if ( TARGET GraphBLAS::GraphBLAS_static )
-        target_link_libraries ( LAGraphX_static PRIVATE GraphBLAS::GraphBLAS_static )
+        target_link_libraries ( LAGraphX_static PUBLIC GraphBLAS::GraphBLAS_static )
     else ( )
-        target_link_libraries ( LAGraphX_static PRIVATE GraphBLAS::GraphBLAS )
+        target_link_libraries ( LAGraphX_static PUBLIC GraphBLAS::GraphBLAS )
     endif ( )
 
     target_include_directories ( LAGraphX_static PUBLIC

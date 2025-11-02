@@ -166,6 +166,7 @@ else ( )
             GraphBLAS
             GIT_REPOSITORY https://github.com/DrTimothyAldenDavis/GraphBLAS.git
             GIT_TAG stable
+            GIT_PROGRESS TRUE
         )
 
         # Download and make it available
