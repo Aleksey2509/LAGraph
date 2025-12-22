@@ -136,26 +136,44 @@ if ( SUITESPARSE_ROOT_CMAKELISTS )
     if ( TARGET GraphBLAS_static )
         add_library ( GraphBLAS::GraphBLAS_static ALIAS GraphBLAS_static )
     endif ( )
-
 else ( )
 
-    # If GraphBLAS is not in a standard installation location, either
-    #     export GRAPHBLAS_ROOT <path>
-    # or
-    #     GRAPHBLAS_ROOT=<path> cmake ..
-    # or uncomment the next line:
-    # set ( ENV{GRAPHBLAS_ROOT} ${PROJECT_SOURCE_DIR}/../GraphBLAS )
+    if(DEFINED ENV{GRAPHBLAS_ROOT})
 
-    # The ../GraphBLAS folder is considered by default, if it exists.
+        # If GraphBLAS is not in a standard installation location, either
+        #     export GRAPHBLAS_ROOT <path>
+        # or
+        #     GRAPHBLAS_ROOT=<path> cmake ..
+        # or uncomment the next line:
+        # set ( ENV{GRAPHBLAS_ROOT} ${PROJECT_SOURCE_DIR}/../GraphBLAS )
 
-#   message ( STATUS "GraphBLAS_ROOT: ${GraphBLAS_ROOT} $ENV{GraphBLAS_ROOT}" )
-#   message ( STATUS "GRAPHBLAS_ROOT: ${GRAPHBLAS_ROOT} $ENV{GRAPHBLAS_ROOT}" )
+        # The ../GraphBLAS folder is considered by default, if it exists.
 
-    # No package version is explicitly stated here; an arbitrary GraphBLAS
-    # library can have any version number.  For SuiteSparse:GraphBLAS, LAGraph
-    # requires v7.1.0 or later, which is checked in LAGraph.h.
-    message ( STATUS "Looking for GraphBLAS with FindGraphBLAS.cmake" )
-    find_package ( GraphBLAS MODULE REQUIRED )
+        message ( STATUS "GRAPHBLAS_ROOT: ${GRAPHBLAS_ROOT} $ENV{GRAPHBLAS_ROOT}" )
+
+        # No package version is explicitly stated here; an arbitrary GraphBLAS
+        # library can have any version number.  For SuiteSparse:GraphBLAS, LAGraph
+        # requires v7.1.0 or later, which is checked in LAGraph.h.
+        message ( STATUS "Looking for GraphBLAS with FindGraphBLAS.cmake" )
+        find_package ( GraphBLAS MODULE REQUIRED )
+
+    # Use fetch content to download the graphblas dependancy
+    else( )
+
+        include(FetchContent)
+
+        FetchContent_Declare(
+            GraphBLAS
+            GIT_REPOSITORY https://github.com/DrTimothyAldenDavis/GraphBLAS.git
+            GIT_TAG stable
+            GIT_PROGRESS TRUE
+        )
+
+        # Download and make it available
+        FetchContent_MakeAvailable(GraphBLAS)
+        add_library ( GraphBLAS::GraphBLAS ALIAS GraphBLAS )
+
+    endif( )
 
 endif ( )
 
