@@ -40,6 +40,7 @@ int64_t  GB_Global_hack_get (int k) ;
 //==============================================================================
 
 #if defined ( __cplusplus )
+#undef I
 extern "C"
 {
 #endif

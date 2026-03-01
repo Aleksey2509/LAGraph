@@ -59,6 +59,9 @@
 #endif
 
 #include <GraphBLAS.h>
+#if defined ( __cplusplus )
+#undef I
+#endif
 #if defined ( _OPENMP )
     #include <omp.h>
 #endif
